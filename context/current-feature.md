@@ -1,30 +1,16 @@
-# Current Feature: Phase 3-5 — Landing Page & Avatar
+# Current Feature
 
 ## Status
 
-In Progress
+Not Started
 
 ## Goals
 
-- `/` แสดง avatar grid + name + code form (Gartic Phone style)
-- เลือก avatar → highlight, default `cat`
-- Submit → validate room → joinRoom → sessionStorage เก็บ `{ playerId, playerName, avatar }`
-- Redirect ไป `/play/[code]/lobby`
-- `/play` redirect ไป `/`
-- Pusher auth ส่ง `avatar` ใน `user_info`
-- Lobby player list แสดง avatar image
-- Host lobby player list แสดง avatar image
-- QuizCard มีปุ่ม "▶ Host Game"
-- `npm run build` ผ่าน
+<!-- Add goals here -->
 
 ## Notes
 
-- Depends on Phase 2-1 (`joinRoom`), Phase 2-3 (LobbyView), Phase 2-4 (HostRoomView)
-- Files: `page.tsx`, `play/page.tsx`, `pusher/auth/route.ts`, `LobbyView.tsx`, `HostRoomView.tsx`, `QuizCard.tsx`
-- 9 SVG avatars ใน `public/avatar/`: bear, bird, cat, dog, fish, frog, octopus, owl, rabbit
-- `joinRoom` เรียกจาก landing แทน lobby → lobby ข้าม name entry ถ้ามี identity ใน sessionStorage
-- LobbyView ยังคง fallback name entry ไว้สำหรับเข้า URL ตรง
-- ไม่ต้อง Prisma migration — avatar เก็บใน sessionStorage เท่านั้น
+<!-- Add notes here -->
 
 ## History
 
@@ -45,3 +31,4 @@ In Progress
 - Phase 3-2 — Player Game Screen: สร้าง `/play/[code]/game` + `PlayerGameView` state machine (waiting→question→answered→result→leaderboard→ended)
 - Phase 3-3 — Host Game Controls: อัปเดต `/room/[code]` รองรับ ACTIVE/FINISHED + `HostGameView` (live counts, reveal, next, end)
 - Phase 3-4 — Answer Submit API Route: สร้าง `POST /api/rooms/[code]/answer` verify player, update score, broadcast `answer-submitted`
+- Phase 3-5 — Landing Page & Avatar: หน้าหลัก Gartic Phone-style, avatar picker (click to cycle), JOIN button สีขาว, avatar ใน Pusher member_info → แสดงใน lobby/host player list, HostGameButton ใน QuizCard
