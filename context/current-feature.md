@@ -1,25 +1,16 @@
-# Current Feature: Phase 2-2 — Play Entry Page
+# Current Feature
 
 ## Status
 
-In Progress
+Not Started
 
 ## Goals
 
-- `/play` โหลดได้ ไม่มี error
-- กรอก code แล้วกด Join → validate ผ่าน API
-- Code ไม่มีในระบบ หรือ status ไม่ใช่ LOBBY → แสดง error
-- Code ถูกต้อง → redirect ไป `/play/[code]/lobby`
-- Input force uppercase ขณะพิมพ์
-- `npm run build` ผ่าน
+<!-- Add goals here -->
 
 ## Notes
 
-- Route: `/play` — ไม่ต้อง auth (guest)
-- Depends on Phase 2-1 (Room ใน DB)
-- Files: `src/app/play/page.tsx` (Create), `src/app/api/rooms/[code]/route.ts` (Create)
-- ใช้ `fetch` ตรงแทน Server Action เพราะต้องการ HTTP status code ในการ validate
-- `select: { code, status }` ใน API — ไม่เปิดเผยข้อมูล room อื่นให้ guest
+<!-- Add notes here -->
 
 ## History
 
@@ -33,3 +24,4 @@ In Progress
 - Phase 1-4 — Create Quiz Page: สร้างหน้า `/quiz/new` พร้อม React Hook Form + Zod validation, submit → `createQuizSet` → redirect `/quiz/[id]`, error แสดง alert
 - Phase 1-5 — Edit Quiz Page: สร้างหน้า `/quiz/[id]` พร้อม `QuizEditor` และ `QuestionEditor`, แก้ title/description, เพิ่ม/แก้ไข/ลบ questions, `router.refresh()` หลัง mutation เพื่อ sync UI
 - Phase 2-1 — Room Server Actions & Pusher Auth: สร้าง `src/actions/room.ts` (`createRoom`, `joinRoom`, `startGame`), แก้ Pusher auth รองรับ presence channel พร้อม member data, เพิ่ม `authEndpoint` ใน pusher-client
+- Phase 2-2 — Play Entry Page: สร้างหน้า `/play` กรอก room code + API route `GET /api/rooms/[code]` validate room
