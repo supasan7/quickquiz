@@ -1,0 +1,65 @@
+generator client {
+  provider = "prisma-client"
+  output   = "../src/generated/prisma"
+}
+
+datasource db {
+  provider = "postgresql"
+}
+
+model User {
+  id        String    @id @default(cuid())
+  clerkId   String    @unique
+  name      String
+  email     String    @unique
+  quizSets  QuizSet[]
+  createdAt DateTime  @default(now())
+}
+
+model QuizSet {
+  id          String     @id @default(cuid())
+  title       String
+  description String?
+  hostId      String
+  host        User       @relation(fields: [hostId], references: [id], onDelete: Cascade)
+  questions   Question[]
+  rooms       Room[]
+  createdAt   DateTime   @default(now())
+  updatedAt   DateTime   @updatedAt
+}
+
+model Question {
+  id            String   @id @default(cuid())
+  quizSetId     String
+  quizSet       QuizSet  @relation(fields: [quizSetId], references: [id], onDelete: Cascade)
+  text          String
+  choices       String[]
+  correctIndex  Int
+  timeLimitSecs Int      @default(20)
+  order         Int
+}
+
+model Room {
+  id        String     @id @default(cuid())
+  code      String     @unique
+  quizSetId String
+  quizSet   QuizSet    @relation(fields: [quizSetId], references: [id])
+  status    RoomStatus @default(LOBBY)
+  currentQ  Int        @default(0)
+  players   Player[]
+  createdAt DateTime   @default(now())
+}
+
+model Player {
+  id     String @id @default(cuid())
+  roomId String
+  room   Room   @relation(fields: [roomId], references: [id], onDelete: Cascade)
+  name   String
+  score  Int    @default(0)
+}
+
+enum RoomStatus {
+  LOBBY
+  ACTIVE
+  FINISHED
+}
