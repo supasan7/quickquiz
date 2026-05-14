@@ -271,41 +271,53 @@ NEXT_PUBLIC_PUSHER_CLUSTER=
 
 ---
 
-### Phase 1 — Quiz Management `MVP`
+### Phase 1 — Quiz Management ✅ `DONE`
 > Host สร้างและจัดการชุดคำถามได้
 
-- [ ] Dashboard — แสดงรายการ quiz sets ของ host
-- [ ] สร้าง quiz set (title, description)
-- [ ] เพิ่ม / แก้ไข / ลบ questions (text, 4 choices, correct answer, time limit)
-- [ ] ลบ quiz set
+- [x] Dashboard — แสดงรายการ quiz sets ของ host
+- [x] สร้าง quiz set (title, description)
+- [x] เพิ่ม / แก้ไข / ลบ questions (text, 4 choices, correct answer, time limit)
+- [x] ลบ quiz set
 
 **เส้นทาง:** `/dashboard` → `/quiz/new` → `/quiz/[id]`
 
 ---
 
-### Phase 2 — Room & Lobby `MVP`
+### Phase 2 — Room & Lobby ✅ `DONE`
 > Host เปิดห้อง, Player เข้าร่วมและแชทในล็อบบี้ได้
 
-- [ ] Host สร้างห้องจาก quiz set → ได้รหัสห้อง
-- [ ] Player กรอกรหัสห้อง → กรอกชื่อ → เข้าล็อบบี้
-- [ ] Player list real-time ผ่าน Pusher presence channel
-- [ ] **Lobby chat** — ส่ง/รับข้อความ real-time
-- [ ] Host เห็นรายชื่อผู้เล่นและแชท (read-only)
-- [ ] Host กด "Start Game" → broadcast ไปทุก client
+- [x] Host สร้างห้องจาก quiz set → ได้รหัสห้อง
+- [x] Player กรอกรหัสห้อง → กรอกชื่อ → เข้าล็อบบี้
+- [x] Player list real-time ผ่าน Pusher presence channel
+- [x] **Lobby chat** — ส่ง/รับข้อความ real-time
+- [x] Host เห็นรายชื่อผู้เล่นและแชท (read-only)
+- [x] Host กด "Start Game" → broadcast ไปทุก client
 
-**เส้นทาง:** `/play` → `/play/[code]/lobby` | `/room/[code]`
+**เส้นทาง:** `/` → `/play/[code]/lobby` | `/room/[code]`
 
 ---
 
-### Phase 3 — Game Loop `MVP`
+### Phase 3 — Game Loop ✅ `DONE`
 > เล่นเกมได้ครบ loop: คำถาม → ตอบ → ผล → leaderboard
 
-- [ ] แสดงคำถาม + countdown timer (sync ทุก client)
-- [ ] Player เลือกคำตอบ → lock in → รอผล
-- [ ] เมื่อ timer หมด → เฉลยคำตอบ + คะแนนที่ได้
-- [ ] Host กด "Next Question" → ไปข้อถัดไป
-- [ ] หลังข้อสุดท้าย → แสดง final leaderboard
-- [ ] Host กด "End Game" → ปิดห้อง
+- [x] แสดงคำถาม + countdown timer (sync ทุก client)
+- [x] Player เลือกคำตอบ → lock in → รอผล
+- [x] เมื่อ timer หมด → เฉลยคำตอบ + คะแนนที่ได้
+- [x] Host กด "Next Question" → ไปข้อถัดไป
+- [x] หลังข้อสุดท้าย → แสดง final leaderboard
+- [x] Host กด "End Game" → ปิดห้อง
+
+---
+
+### Phase 3.5 — Landing Page & Avatar `IN PROGRESS`
+> หน้าหลัก Gartic Phone-style พร้อม avatar picker
+
+- [ ] หน้าหลัก `/` — เลือก avatar + กรอกชื่อ + กรอก room code → join
+- [ ] 9 avatar SVG (`public/avatar/*.svg`) แสดงใน grid ให้เลือก
+- [ ] Avatar เก็บใน sessionStorage, ส่งผ่าน Pusher auth → `user_info`
+- [ ] แสดง avatar ใน player list ทั้ง lobby (player) และ host view
+- [ ] `/play` redirect ไป `/`
+- [ ] เพิ่มปุ่ม "▶ Host Game" ใน QuizCard บน Dashboard
 
 ---
 
@@ -317,6 +329,7 @@ NEXT_PUBLIC_PUSHER_CLUSTER=
 - [ ] Screen transitions ที่ smooth
 - [ ] Rejoin room เมื่อ connection หลุด
 - [ ] Room หมดอายุอัตโนมัติหลังเกมจบ
+- [ ] Server-side deduplication สำหรับ answer submit
 
 ---
 
