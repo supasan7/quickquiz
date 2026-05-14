@@ -2,6 +2,7 @@ import { auth } from '@clerk/nextjs/server'
 import { redirect, notFound } from 'next/navigation'
 import { prisma } from '@/lib/prisma'
 import HostRoomView from '@/components/room/HostRoomView'
+import HostGameView from '@/components/game/HostGameView'
 
 export default async function HostRoomPage({
   params,
@@ -17,11 +18,21 @@ export default async function HostRoomPage({
 
   const room = await prisma.room.findUnique({
     where:   { code },
-    include: { quizSet: true },
+    include: { quizSet: { include: { questions: { orderBy: { order: 'asc' } } } } },
   })
 
   if (!room || room.quizSet.hostId !== user.id) notFound()
-  if (room.status !== 'LOBBY') redirect('/dashboard')
+  if (room.status === 'FINISHED') redirect('/dashboard')
 
-  return <HostRoomView roomCode={code} />
+  if (room.status === 'LOBBY') {
+    return <HostRoomView roomCode={code} />
+  }
+
+  return (
+    <HostGameView
+      roomCode={code}
+      totalQuestions={room.quizSet.questions.length}
+      currentQ={room.currentQ}
+    />
+  )
 }
