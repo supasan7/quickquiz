@@ -186,9 +186,8 @@ enum RoomStatus {
 
 | Channel | Type | Events |
 |---|---|---|
-| `presence-room-{code}` | Presence | `player-joined`, `player-left`, `chat-message` |
-| `private-host-{code}` | Private | `start-game`, `next-question`, `end-game` |
-| `room-{code}` | Public | `question-revealed`, `timer-tick`, `round-result`, `leaderboard` |
+| `presence-room-{code}` | Presence | `player-joined`, `player-left`, `chat-message`, `game-start` |
+| `room-{code}` | Public | `question-revealed`, `timer-tick`, `round-result`, `leaderboard`, `next-question`, `end-game` |
 
 ---
 
