@@ -1,28 +1,16 @@
-# Current Feature: Phase 2-4 — Host Room View
+# Current Feature
 
 ## Status
 
-In Progress
+Not Started
 
 ## Goals
 
-- `/room/[code]` โหลดได้ ไม่มี error (requires host auth)
-- 404 ถ้า room ไม่ใช่ของ host ที่ login
-- Redirect ไป `/dashboard` ถ้า room ไม่ใช่ LOBBY แล้ว
-- เห็น player list update real-time
-- เห็น chat messages จาก players
-- "Start Game" disabled เมื่อยังไม่มี player
-- กด "Start Game" → players ใน lobby redirect ไป `/play/[code]/game`
-- ปุ่ม "Host Game" ใน QuizEditor → สร้าง room → ไปที่ `/room/[code]`
-- `npm run build` ผ่าน
+<!-- Add goals here -->
 
 ## Notes
 
-- Depends on Phase 2-1 (`startGame`, Pusher auth), Phase 2-3 (presence channel)
-- Files: `src/app/room/[code]/page.tsx` (Create), `src/components/room/HostRoomView.tsx` (Create), `src/components/room/HostGameButton.tsx` (Create)
-- Host ไม่ส่ง `playerId` ใน Pusher auth — ใช้ Clerk session แทน
-- `router.push('/room/${roomCode}/game')` — route นี้จะสร้างใน Phase 3
-- "Start Game" disabled ถ้า `players.length === 0`
+<!-- Add notes here -->
 
 ## History
 
@@ -38,3 +26,4 @@ In Progress
 - Phase 2-1 — Room Server Actions & Pusher Auth: สร้าง `src/actions/room.ts` (`createRoom`, `joinRoom`, `startGame`), แก้ Pusher auth รองรับ presence channel พร้อม member data, เพิ่ม `authEndpoint` ใน pusher-client
 - Phase 2-2 — Play Entry Page: สร้างหน้า `/play` กรอก room code + API route `GET /api/rooms/[code]` validate room
 - Phase 2-3 — Player Lobby: สร้าง `/play/[code]/lobby` + `LobbyView` (Pusher presence, player list, chat) + chat API route
+- Phase 2-4 — Host Room View: สร้าง `/room/[code]` + `HostRoomView` (Pusher presence, read-only chat, Start Game) + `HostGameButton` ใน QuizEditor
