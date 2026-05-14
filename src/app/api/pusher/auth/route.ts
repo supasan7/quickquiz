@@ -9,6 +9,7 @@ export async function POST(req: NextRequest) {
   const socketId = params.get('socket_id')!
   const channel  = params.get('channel_name')!
   const playerId = params.get('playerId')
+  const avatar   = params.get('avatar') ?? 'cat'
 
   if (channel.startsWith('presence-')) {
     if (playerId) {
@@ -17,7 +18,7 @@ export async function POST(req: NextRequest) {
 
       const authResponse = pusher.authorizeChannel(socketId, channel, {
         user_id:   playerId,
-        user_info: { name: player.name, isHost: false },
+        user_info: { name: player.name, isHost: false, avatar },
       })
       return NextResponse.json(authResponse)
     }

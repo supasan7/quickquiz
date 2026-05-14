@@ -6,7 +6,7 @@ import PusherJs from 'pusher-js'
 import { Button } from '@/components/ui/button'
 import { startGame } from '@/actions/room'
 
-type Member = { id: string; info: { name: string; isHost: boolean } }
+type Member = { id: string; info: { name: string; isHost: boolean; avatar?: string } }
 type ChatMessage = { senderId: string; senderName: string; text: string }
 
 type Props = {
@@ -27,7 +27,7 @@ export default function HostRoomView({ roomCode }: Props) {
 
     const channel = pusher.subscribe(`presence-room-${roomCode}`) as any
 
-    channel.bind('pusher:subscription_succeeded', (data: { members: Record<string, { name: string; isHost: boolean }> }) => {
+    channel.bind('pusher:subscription_succeeded', (data: { members: Record<string, { name: string; isHost: boolean; avatar?: string }> }) => {
       const list = Object.entries(data.members).map(([id, info]) => ({ id, info }))
       setMembers(list)
     })
@@ -84,8 +84,9 @@ export default function HostRoomView({ roomCode }: Props) {
           <h2 className="font-semibold">Players ({players.length})</h2>
           <ul className="space-y-1">
             {players.map((m) => (
-              <li key={m.id} className="text-sm px-3 py-2 border rounded-lg">
-                {m.info.name}
+              <li key={m.id} className="flex items-center gap-3 px-3 py-2 border rounded-xl bg-card">
+                <img src={`/avatar/${m.info.avatar ?? 'cat'}.svg`} alt="" className="w-8 h-8" />
+                <span className="font-semibold text-sm">{m.info.name}</span>
               </li>
             ))}
           </ul>

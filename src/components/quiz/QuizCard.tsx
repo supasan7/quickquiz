@@ -4,6 +4,7 @@ import Link from 'next/link'
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
 import { Button, buttonVariants } from '@/components/ui/button'
 import { deleteQuizSet } from '@/actions/quiz'
+import HostGameButton from '@/components/room/HostGameButton'
 
 type Props = {
   quizSet: {
@@ -27,12 +28,11 @@ export default function QuizCard({ quizSet, questionCount }: Props) {
         <p className="text-sm text-muted-foreground">
           {questionCount} question{questionCount !== 1 ? 's' : ''}
         </p>
-        <div className="flex gap-2 pt-1">
+        <div className="flex gap-2 pt-1 flex-wrap">
+          <HostGameButton quizSetId={quizSet.id} />
           <Link href={`/quiz/${quizSet.id}`} className={buttonVariants({ size: 'sm', variant: 'outline' })}>Edit</Link>
           <form action={() => { void deleteQuizSet(quizSet.id) }}>
-            <Button size="sm" variant="destructive" type="submit">
-              Delete
-            </Button>
+            <Button size="sm" variant="destructive" type="submit">Delete</Button>
           </form>
         </div>
       </CardContent>

@@ -8,8 +8,9 @@ import { Input } from '@/components/ui/input'
 import { Label } from '@/components/ui/label'
 import { joinRoom } from '@/actions/room'
 
-type Member = { id: string; info: { name: string; isHost: boolean } }
+type Member = { id: string; info: { name: string; isHost: boolean; avatar?: string } }
 type ChatMessage = { senderId: string; senderName: string; text: string }
+type Identity = { playerId: string; playerName: string; avatar: string }
 
 type Props = { roomCode: string }
 
@@ -17,11 +18,10 @@ export default function LobbyView({ roomCode }: Props) {
   const router = useRouter()
 
   const storageKey = `lobby-${roomCode}`
-  const [playerId,   setPlayerId]   = useState<string | null>(null)
-  const [playerName, setPlayerName] = useState<string | null>(null)
-  const [nameInput,  setNameInput]  = useState('')
-  const [joining,    setJoining]    = useState(false)
-  const [joinError,  setJoinError]  = useState('')
+  const [identity,  setIdentity]  = useState<Identity | null>(null)
+  const [nameInput, setNameInput] = useState('')
+  const [joining,   setJoining]   = useState(false)
+  const [joinError, setJoinError] = useState('')
 
   const [members,  setMembers]  = useState<Member[]>([])
   const [messages, setMessages] = useState<ChatMessage[]>([])
@@ -31,26 +31,22 @@ export default function LobbyView({ roomCode }: Props) {
   // Restore identity from sessionStorage on mount
   useEffect(() => {
     const stored = sessionStorage.getItem(storageKey)
-    if (stored) {
-      const { playerId: pid, playerName: pname } = JSON.parse(stored)
-      setPlayerId(pid)
-      setPlayerName(pname)
-    }
+    if (stored) setIdentity(JSON.parse(stored) as Identity)
   }, [storageKey])
 
-  // Connect to Pusher once playerId is known
+  // Connect to Pusher once identity is known
   useEffect(() => {
-    if (!playerId) return
+    if (!identity) return
 
     const pusher = new PusherJs(process.env.NEXT_PUBLIC_PUSHER_KEY!, {
       cluster:      process.env.NEXT_PUBLIC_PUSHER_CLUSTER!,
       authEndpoint: '/api/pusher/auth',
-      auth:         { params: { playerId } },
+      auth:         { params: { playerId: identity.playerId, avatar: identity.avatar } },
     })
 
     const channel = pusher.subscribe(`presence-room-${roomCode}`) as any
 
-    channel.bind('pusher:subscription_succeeded', (data: { members: Record<string, { name: string; isHost: boolean }> }) => {
+    channel.bind('pusher:subscription_succeeded', (data: { members: Record<string, { name: string; isHost: boolean; avatar?: string }> }) => {
       const list = Object.entries(data.members).map(([id, info]) => ({ id, info }))
       setMembers(list)
     })
@@ -75,13 +71,14 @@ export default function LobbyView({ roomCode }: Props) {
       pusher.unsubscribe(`presence-room-${roomCode}`)
       pusher.disconnect()
     }
-  }, [playerId, roomCode, router])
+  }, [identity, roomCode, router])
 
   // Auto-scroll chat
   useEffect(() => {
     messagesEndRef.current?.scrollIntoView({ behavior: 'smooth' })
   }, [messages])
 
+  // Fallback join (for direct URL access without landing page)
   async function handleJoin(e: React.FormEvent) {
     e.preventDefault()
     const name = nameInput.trim()
@@ -96,28 +93,27 @@ export default function LobbyView({ roomCode }: Props) {
       return
     }
 
-    const { playerId: pid, playerName: pname } = result.data
-    sessionStorage.setItem(storageKey, JSON.stringify({ playerId: pid, playerName: pname }))
-    setPlayerId(pid)
-    setPlayerName(pname)
+    const id: Identity = { playerId: result.data.playerId, playerName: result.data.playerName, avatar: 'cat' }
+    sessionStorage.setItem(storageKey, JSON.stringify(id))
+    setIdentity(id)
     setJoining(false)
   }
 
   async function handleSendChat(e: React.FormEvent) {
     e.preventDefault()
     const text = chatText.trim()
-    if (!text || !playerId || !playerName) return
+    if (!text || !identity) return
     setChatText('')
 
     await fetch(`/api/rooms/${roomCode}/chat`, {
       method:  'POST',
       headers: { 'Content-Type': 'application/json' },
-      body:    JSON.stringify({ playerId, playerName, text }),
+      body:    JSON.stringify({ playerId: identity.playerId, playerName: identity.playerName, text }),
     })
   }
 
-  // Name entry screen
-  if (!playerId) {
+  // Name entry screen (fallback — normally bypassed via landing page)
+  if (!identity) {
     return (
       <main className="min-h-screen flex items-center justify-center px-4">
         <div className="w-full max-w-sm space-y-6">
@@ -163,9 +159,12 @@ export default function LobbyView({ roomCode }: Props) {
           <h2 className="font-semibold">Players ({players.length})</h2>
           <ul className="space-y-1">
             {players.map((m) => (
-              <li key={m.id} className="text-sm px-3 py-2 border rounded-lg">
-                {m.info.name}
-                {m.id === playerId && <span className="text-muted-foreground ml-1">(you)</span>}
+              <li key={m.id} className="flex items-center gap-3 px-3 py-2 border rounded-xl bg-card">
+                <img src={`/avatar/${m.info.avatar ?? 'cat'}.svg`} alt="" className="w-8 h-8" />
+                <span className="font-semibold text-sm flex-1">{m.info.name}</span>
+                {m.id === identity.playerId && (
+                  <span className="text-muted-foreground text-xs">(you)</span>
+                )}
               </li>
             ))}
           </ul>
