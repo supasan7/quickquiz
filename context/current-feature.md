@@ -1,16 +1,25 @@
-# Current Feature
+# Current Feature: Phase 3-4 — Answer Submit API Route
 
 ## Status
 
-Not Started
+In Progress
 
 ## Goals
 
-<!-- Add goals here -->
+- `POST /api/rooms/[code]/answer` ทำงานได้
+- Player ที่ไม่ได้อยู่ใน room → 403
+- Room ไม่ใช่ ACTIVE → 400
+- คำตอบถูก → `Player.score` เพิ่ม 1000
+- Broadcast `answer-submitted` ทุกครั้ง
+- `PlayerGameView` ใช้ fetch แทน Server Action (ทำแล้วใน Phase 3-2 ✅)
+- `npm run build` ผ่าน
 
 ## Notes
 
-<!-- Add notes here -->
+- Depends on Phase 3-1 (game logic), Phase 3-2 (PlayerGameView ใช้ fetch แล้ว)
+- File เดียว: `src/app/api/rooms/[code]/answer/route.ts`
+- Pattern เดียวกับ chat route (Phase 2-3) — verify player ผ่าน DB ก่อน trigger Pusher
+- `submitAnswer` ใน `game.ts` ยังคงอยู่แต่ไม่ถูกเรียกจาก player client
 
 ## History
 
