@@ -1,0 +1,18 @@
+<svg viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg" width="200" height="200">
+  <!-- Background circle -->
+  <circle cx="100" cy="100" r="95" fill="#FFB627" stroke="#2B2B2B" stroke-width="6"/>
+  
+  <!-- Decorative dots -->
+  <circle cx="40" cy="50" r="4" fill="#FF6FA8"/>
+  <circle cx="160" cy="55" r="3" fill="#7FC97F"/>
+  <circle cx="45" cy="155" r="3" fill="#9B6BFF"/>
+  <circle cx="160" cy="150" r="4" fill="#FF6B6B"/>
+  
+  <!-- Q letter -->
+  <ellipse cx="100" cy="95" rx="45" ry="50" fill="#FFFFFF" stroke="#2B2B2B" stroke-width="5"/>
+  <ellipse cx="100" cy="95" rx="20" ry="22" fill="#FFB627" stroke="#2B2B2B" stroke-width="4"/>
+  <path d="M 130 130 L 155 155" stroke="#2B2B2B" stroke-width="8" stroke-linecap="round"/>
+  
+  <!-- Question mark inside -->
+  <text x="100" y="110" text-anchor="middle" font-family="'Comic Sans MS', cursive, sans-serif" font-size="42" font-weight="bold" fill="#2B2B2B">?</text>
+</svg>

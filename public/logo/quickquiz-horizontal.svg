@@ -1,0 +1,26 @@
+<svg viewBox="0 0 400 100" xmlns="http://www.w3.org/2000/svg" width="400" height="100">
+  <!-- Icon part -->
+  <circle cx="50" cy="50" r="38" fill="#FFB627" stroke="#2B2B2B" stroke-width="4"/>
+  <ellipse cx="50" cy="48" rx="20" ry="22" fill="#FFFFFF" stroke="#2B2B2B" stroke-width="3"/>
+  <ellipse cx="50" cy="48" rx="9" ry="10" fill="#FFB627" stroke="#2B2B2B" stroke-width="2.5"/>
+  <path d="M 64 64 L 76 76" stroke="#2B2B2B" stroke-width="5" stroke-linecap="round"/>
+  
+  <!-- Quick text -->
+  <g transform="translate(105, 25) rotate(-2)">
+    <text font-family="'Comic Sans MS', 'Marker Felt', cursive, sans-serif" font-size="32" font-weight="bold" fill="#FF6B6B" stroke="#2B2B2B" stroke-width="2" paint-order="stroke">
+      <tspan x="0" y="28">Quick</tspan>
+    </text>
+  </g>
+  
+  <!-- Quiz text -->
+  <g transform="translate(225, 25) rotate(2)">
+    <text font-family="'Comic Sans MS', 'Marker Felt', cursive, sans-serif" font-size="32" font-weight="bold" fill="#6FA8DC" stroke="#2B2B2B" stroke-width="2" paint-order="stroke">
+      <tspan x="0" y="28">Quiz</tspan>
+    </text>
+  </g>
+  
+  <!-- Sparkle -->
+  <g transform="translate(340, 35)">
+    <path d="M 0 -6 L 1.5 -1.5 L 6 -1.5 L 2 1.5 L 4 6 L 0 3 L -4 6 L -2 1.5 L -6 -1.5 L -1.5 -1.5 Z" fill="#FFB627" stroke="#2B2B2B" stroke-width="1.5"/>
+  </g>
+</svg>
