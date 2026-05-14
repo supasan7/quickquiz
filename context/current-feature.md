@@ -1,27 +1,16 @@
-# Current Feature: Phase 3-3 — Host Game Controls
+# Current Feature
 
 ## Status
 
-In Progress
+Not Started
 
 ## Goals
 
-- `/room/[code]` แสดง `HostRoomView` ถ้า LOBBY, `HostGameView` ถ้า ACTIVE
-- FINISHED → redirect `/dashboard`
-- ปุ่ม "Reveal Question" → broadcast `question-revealed`
-- แสดง live answer counts ต่อตัวเลือก real-time
-- ปุ่ม "Reveal Answer" → broadcast `round-result`
-- ปุ่ม "Next Question" → broadcast `question-revealed` หรือ `leaderboard`
-- ปุ่ม "End Game" → broadcast `end-game`
-- `npm run build` ผ่าน
+<!-- Add goals here -->
 
 ## Notes
 
-- Depends on Phase 3-1 (game actions), Phase 2-4 (HostRoomView)
-- Files: `src/app/room/[code]/page.tsx` (Update), `src/components/game/HostGameView.tsx` (Create)
-- Host subscribe `room-{code}` public channel — ไม่ต้อง auth
-- `answer-submitted` events สะสมใน `answerCounts[]` client-side
-- `handleEndGame` ต้อง redirect ไป `/dashboard` หลัง endGame สำเร็จ (spec เดิมไม่มี redirect — ต้องเพิ่ม)
+<!-- Add notes here -->
 
 ## History
 
@@ -40,3 +29,4 @@ In Progress
 - Phase 2-4 — Host Room View: สร้าง `/room/[code]` + `HostRoomView` (Pusher presence, read-only chat, Start Game) + `HostGameButton` ใน QuizEditor
 - Phase 3-1 — Game Server Actions: สร้าง `src/actions/game.ts` (`revealQuestion`, `revealResult`, `nextQuestion`, `endGame`) auth-gated, try/catch ครบ, broadcast Pusher events บน `room-{code}`
 - Phase 3-2 — Player Game Screen: สร้าง `/play/[code]/game` + `PlayerGameView` state machine (waiting→question→answered→result→leaderboard→ended)
+- Phase 3-3 — Host Game Controls: อัปเดต `/room/[code]` รองรับ ACTIVE/FINISHED + `HostGameView` (live counts, reveal, next, end)
