@@ -1,16 +1,25 @@
-# Current Feature
+# Current Feature: Phase 1-4 — Create Quiz Page
 
 ## Status
 
-Not Started
+In Progress
 
 ## Goals
 
-<!-- Add goals here -->
+- `/quiz/new` โหลดได้ ไม่มี error
+- Submit ด้วย title ว่าง → แสดง validation error
+- Submit สำเร็จ → redirect ไปที่ `/quiz/[id]` ของ quiz set ใหม่
+- ปุ่ม Cancel → กลับหน้าก่อนหน้า
+- ปุ่ม "← Back to Dashboard" → ไปที่ `/dashboard`
+- `npm run build` ผ่าน
 
 ## Notes
 
-<!-- Add notes here -->
+- Route: `/quiz/new` — ใช้ `'use client'` เพราะต้องการ `useRouter`
+- Depends on Phase 1-2 (`createQuizSet` action)
+- File เดียว: `src/app/(dashboard)/quiz/new/page.tsx`
+- ส่ง data ผ่าน `FormData` เพื่อ match signature ของ `createQuizSet`
+- shadcn components ที่ต้องใช้: `Input`, `Textarea`, `Label` (ต้องเช็คว่าติดตั้งแล้วหรือยัง)
 
 ## History
 
