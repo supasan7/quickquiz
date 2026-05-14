@@ -1,16 +1,26 @@
-# Current Feature
+# Current Feature: Phase 2-1 — Room Server Actions & Pusher Auth
 
 ## Status
 
-Not Started
+In Progress
 
 ## Goals
 
-<!-- Add goals here -->
+- `createRoom(quizSetId)` สร้าง room พร้อม unique 5-char code
+- `joinRoom(roomCode, playerName)` สร้าง Player record และ return playerId
+- `startGame(roomCode)` อัปเดต status เป็น ACTIVE + trigger `game-start` บน presence channel
+- Pusher auth รองรับ presence channel สำหรับทั้ง guest player (playerId) และ host (Clerk session)
+- `pusher-client.ts` มี `authEndpoint`
+- `npm run build` ผ่าน
 
 ## Notes
 
-<!-- Add notes here -->
+- Depends on Phase 1-2 (User/QuizSet in DB)
+- Files: `src/actions/room.ts` (Create), `src/app/api/pusher/auth/route.ts` (Update), `src/lib/pusher-client.ts` (Update)
+- `joinRoom` ไม่ต้องการ auth — player เป็น guest
+- Pusher presence auth: ถ้ามี `playerId` → guest, ถ้าไม่มี → ใช้ Clerk session (host)
+- `user_id` ของ host ใช้ prefix `host-` เพื่อป้องกัน collision กับ player id
+- Lobby component ต้องสร้าง `new PusherJs(...)` แยกต่างหากเพื่อส่ง `auth.params.playerId`
 
 ## History
 
