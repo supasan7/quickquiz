@@ -1,16 +1,28 @@
-# Current Feature
+# Current Feature: Phase 2-4 — Host Room View
 
 ## Status
 
-Not Started
+In Progress
 
 ## Goals
 
-<!-- Add goals here -->
+- `/room/[code]` โหลดได้ ไม่มี error (requires host auth)
+- 404 ถ้า room ไม่ใช่ของ host ที่ login
+- Redirect ไป `/dashboard` ถ้า room ไม่ใช่ LOBBY แล้ว
+- เห็น player list update real-time
+- เห็น chat messages จาก players
+- "Start Game" disabled เมื่อยังไม่มี player
+- กด "Start Game" → players ใน lobby redirect ไป `/play/[code]/game`
+- ปุ่ม "Host Game" ใน QuizEditor → สร้าง room → ไปที่ `/room/[code]`
+- `npm run build` ผ่าน
 
 ## Notes
 
-<!-- Add notes here -->
+- Depends on Phase 2-1 (`startGame`, Pusher auth), Phase 2-3 (presence channel)
+- Files: `src/app/room/[code]/page.tsx` (Create), `src/components/room/HostRoomView.tsx` (Create), `src/components/room/HostGameButton.tsx` (Create)
+- Host ไม่ส่ง `playerId` ใน Pusher auth — ใช้ Clerk session แทน
+- `router.push('/room/${roomCode}/game')` — route นี้จะสร้างใน Phase 3
+- "Start Game" disabled ถ้า `players.length === 0`
 
 ## History
 
