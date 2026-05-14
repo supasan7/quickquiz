@@ -1,16 +1,26 @@
-# Current Feature
+# Current Feature: Phase 3-1 — Game Server Actions
 
 ## Status
 
-Not Started
+In Progress
 
 ## Goals
 
-<!-- Add goals here -->
+- `revealQuestion(roomCode)` broadcast `question-revealed` (ไม่มี correctIndex)
+- `submitAnswer(roomCode, playerId, choiceIndex)` อัปเดต score + broadcast `answer-submitted`
+- `revealResult(roomCode)` broadcast `round-result` พร้อม correctIndex + player scores
+- `nextQuestion(roomCode)` ไปข้อถัดไป หรือ broadcast `leaderboard` ถ้าหมดแล้ว
+- `endGame(roomCode)` update status + broadcast `end-game`
+- `npm run build` ผ่าน
 
 ## Notes
 
-<!-- Add notes here -->
+- Depends on Phase 2-1 (room actions), Phase 1-2 (quiz/question data)
+- File เดียว: `src/actions/game.ts`
+- Score = 1000 points per correct answer (flat)
+- `answer-submitted` broadcast แค่ `choiceIndex` ไม่มี playerId
+- `assertHostOwnsRoom` ตรวจ ownership + status === ACTIVE
+- `endGame` มี separate auth check เพราะ `assertHostOwnsRoom` ต้องการ ACTIVE แต่ endGame เรียกหลัง leaderboard ได้
 
 ## History
 
