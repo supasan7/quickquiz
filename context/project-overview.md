@@ -16,8 +16,8 @@ QuickQuiz is a real-time multiplayer quiz web app inspired by Kahoot, with an ad
 - See a live leaderboard after each question
 
 ### Player Flow
-- Join a room via room code (no account required — guest name entry)
-- Wait in a lobby before the game starts
+- Join a room via room code (no account required — pick avatar + enter name on landing page)
+- Wait in a lobby before the game starts (avatar shown in player list)
 - Answer questions within the time limit
 - See results and score after each question
 - View final leaderboard at the end
@@ -182,6 +182,15 @@ enum RoomStatus {
 
 ---
 
+## Avatar System
+
+- 9 SVG files in `public/avatar/`: `bear`, `bird`, `cat`, `dog`, `fish`, `frog`, `octopus`, `owl`, `rabbit`
+- Selected on landing page, stored in `sessionStorage` as `{ playerId, playerName, avatar }` (key: `lobby-{roomCode}`)
+- Passed to Pusher auth as `auth.params.avatar` → included in `user_info: { name, isHost, avatar }`
+- Displayed as `<img src="/avatar/{avatar}.svg" />` in lobby player list
+
+---
+
 ## Pusher Channel Design
 
 | Channel | Type | Events |
@@ -194,8 +203,11 @@ enum RoomStatus {
 ## Key Pages & UX Flow
 
 ```
-/ (landing)
-    ↓ Enter room code → /play/[code]/lobby
+/ (landing)  ← main entry point (replaces /play)
+    → Pick avatar (from public/avatar/*.svg)
+    → Enter name + room code
+    → Validate room → joinRoom() → store { playerId, playerName, avatar } in sessionStorage
+    ↓ → /play/[code]/lobby  (skips name entry, connects Pusher with avatar in member_info)
     ↓ Sign in → /dashboard
 
 /dashboard
