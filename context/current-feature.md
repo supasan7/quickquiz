@@ -1,26 +1,16 @@
-# Current Feature: Phase 3-1 — Game Server Actions
+# Current Feature
 
 ## Status
 
-In Progress
+Not Started
 
 ## Goals
 
-- `revealQuestion(roomCode)` broadcast `question-revealed` (ไม่มี correctIndex)
-- `submitAnswer(roomCode, playerId, choiceIndex)` อัปเดต score + broadcast `answer-submitted`
-- `revealResult(roomCode)` broadcast `round-result` พร้อม correctIndex + player scores
-- `nextQuestion(roomCode)` ไปข้อถัดไป หรือ broadcast `leaderboard` ถ้าหมดแล้ว
-- `endGame(roomCode)` update status + broadcast `end-game`
-- `npm run build` ผ่าน
+<!-- Add goals here -->
 
 ## Notes
 
-- Depends on Phase 2-1 (room actions), Phase 1-2 (quiz/question data)
-- File เดียว: `src/actions/game.ts`
-- Score = 1000 points per correct answer (flat)
-- `answer-submitted` broadcast แค่ `choiceIndex` ไม่มี playerId
-- `assertHostOwnsRoom` ตรวจ ownership + status === ACTIVE
-- `endGame` มี separate auth check เพราะ `assertHostOwnsRoom` ต้องการ ACTIVE แต่ endGame เรียกหลัง leaderboard ได้
+<!-- Add notes here -->
 
 ## History
 
@@ -37,3 +27,4 @@ In Progress
 - Phase 2-2 — Play Entry Page: สร้างหน้า `/play` กรอก room code + API route `GET /api/rooms/[code]` validate room
 - Phase 2-3 — Player Lobby: สร้าง `/play/[code]/lobby` + `LobbyView` (Pusher presence, player list, chat) + chat API route
 - Phase 2-4 — Host Room View: สร้าง `/room/[code]` + `HostRoomView` (Pusher presence, read-only chat, Start Game) + `HostGameButton` ใน QuizEditor
+- Phase 3-1 — Game Server Actions: สร้าง `src/actions/game.ts` (`revealQuestion`, `revealResult`, `nextQuestion`, `endGame`) auth-gated, try/catch ครบ, broadcast Pusher events บน `room-{code}`
