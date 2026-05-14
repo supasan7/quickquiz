@@ -1,16 +1,25 @@
-# Current Feature
+# Current Feature: Phase 2-2 — Play Entry Page
 
 ## Status
 
-Not Started
+In Progress
 
 ## Goals
 
-<!-- Add goals here -->
+- `/play` โหลดได้ ไม่มี error
+- กรอก code แล้วกด Join → validate ผ่าน API
+- Code ไม่มีในระบบ หรือ status ไม่ใช่ LOBBY → แสดง error
+- Code ถูกต้อง → redirect ไป `/play/[code]/lobby`
+- Input force uppercase ขณะพิมพ์
+- `npm run build` ผ่าน
 
 ## Notes
 
-<!-- Add notes here -->
+- Route: `/play` — ไม่ต้อง auth (guest)
+- Depends on Phase 2-1 (Room ใน DB)
+- Files: `src/app/play/page.tsx` (Create), `src/app/api/rooms/[code]/route.ts` (Create)
+- ใช้ `fetch` ตรงแทน Server Action เพราะต้องการ HTTP status code ในการ validate
+- `select: { code, status }` ใน API — ไม่เปิดเผยข้อมูล room อื่นให้ guest
 
 ## History
 
