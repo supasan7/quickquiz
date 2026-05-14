@@ -1,16 +1,30 @@
-# Current Feature
+# Current Feature: Phase 3-5 — Landing Page & Avatar
 
 ## Status
 
-Not Started
+In Progress
 
 ## Goals
 
-<!-- Add goals here -->
+- `/` แสดง avatar grid + name + code form (Gartic Phone style)
+- เลือก avatar → highlight, default `cat`
+- Submit → validate room → joinRoom → sessionStorage เก็บ `{ playerId, playerName, avatar }`
+- Redirect ไป `/play/[code]/lobby`
+- `/play` redirect ไป `/`
+- Pusher auth ส่ง `avatar` ใน `user_info`
+- Lobby player list แสดง avatar image
+- Host lobby player list แสดง avatar image
+- QuizCard มีปุ่ม "▶ Host Game"
+- `npm run build` ผ่าน
 
 ## Notes
 
-<!-- Add notes here -->
+- Depends on Phase 2-1 (`joinRoom`), Phase 2-3 (LobbyView), Phase 2-4 (HostRoomView)
+- Files: `page.tsx`, `play/page.tsx`, `pusher/auth/route.ts`, `LobbyView.tsx`, `HostRoomView.tsx`, `QuizCard.tsx`
+- 9 SVG avatars ใน `public/avatar/`: bear, bird, cat, dog, fish, frog, octopus, owl, rabbit
+- `joinRoom` เรียกจาก landing แทน lobby → lobby ข้าม name entry ถ้ามี identity ใน sessionStorage
+- LobbyView ยังคง fallback name entry ไว้สำหรับเข้า URL ตรง
+- ไม่ต้อง Prisma migration — avatar เก็บใน sessionStorage เท่านั้น
 
 ## History
 
