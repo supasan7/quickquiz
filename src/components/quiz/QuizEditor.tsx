@@ -12,6 +12,7 @@ import { Textarea } from '@/components/ui/textarea'
 import { Label } from '@/components/ui/label'
 import { updateQuizSet, deleteQuestion } from '@/actions/quiz'
 import QuestionEditor from './QuestionEditor'
+import HostGameButton from '@/components/room/HostGameButton'
 
 type Question = {
   id:            string
@@ -61,9 +62,12 @@ export default function QuizEditor({ quizSet }: { quizSet: QuizSet }) {
 
   return (
     <main className="max-w-3xl mx-auto px-4 py-8 space-y-10">
-      <Link href="/dashboard" className="text-sm text-muted-foreground hover:underline">
-        ← Back to Dashboard
-      </Link>
+      <div className="flex items-center justify-between">
+        <Link href="/dashboard" className="text-sm text-muted-foreground hover:underline">
+          ← Back to Dashboard
+        </Link>
+        <HostGameButton quizSetId={quizSet.id} />
+      </div>
 
       <section className="space-y-4">
         <h1 className="text-2xl font-bold">Edit Quiz</h1>
