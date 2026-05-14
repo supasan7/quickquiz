@@ -1,16 +1,28 @@
-# Current Feature
+# Current Feature: Phase 3-2 — Player Game Screen
 
 ## Status
 
-Not Started
+In Progress
 
 ## Goals
 
-<!-- Add goals here -->
+- `/play/[code]/game` โหลดได้, 404 ถ้า room เป็น LOBBY
+- State `waiting` แสดงหน้า "Get ready!"
+- `question-revealed` event → แสดงคำถาม + countdown timer
+- กด answer button → state `answered`, lock in ทันที
+- `round-result` → แสดงถูก/ผิด + score
+- `leaderboard` event → แสดง final leaderboard
+- `end-game` event → แสดงหน้า "Game Over"
+- `npm run build` ผ่าน
 
 ## Notes
 
-<!-- Add notes here -->
+- Depends on Phase 3-1 (game actions), Phase 2-3 (player identity ใน sessionStorage)
+- Files: `src/app/play/[code]/game/page.tsx` (Create), `src/components/game/PlayerGameView.tsx` (Create)
+- Subscribe `room-{code}` public channel — ไม่ต้อง auth
+- `identity` ดึงจาก sessionStorage key `lobby-{roomCode}`
+- **สำคัญ:** spec เดิมใช้ `submitAnswer` จาก `@/actions/game` แต่ Phase 3-4 ตัดสินใจใช้ API route แทน → ใช้ `fetch('/api/rooms/[code]/answer')` ใน `handleAnswer`
+- Timer countdown เป็น client-side — เริ่มนับเมื่อ `question-revealed` มาถึง
 
 ## History
 
