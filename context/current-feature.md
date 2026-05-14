@@ -1,16 +1,24 @@
-# Current Feature
+# Current Feature: Phase 1-2 — Quiz Server Actions
 
 ## Status
 
-Not Started
+In Progress
 
 ## Goals
 
-<!-- Add goals here -->
+- สร้าง `src/actions/quiz.ts` ที่มี Server Actions ครบสำหรับ CRUD quiz sets และ questions
+- ทุก action ต้อง auth-gated (ต้อง sign in) และ verify ownership ก่อน mutation
+- Actions: `createQuizSet`, `updateQuizSet`, `deleteQuizSet`, `upsertQuestion`, `deleteQuestion`
+- Return `{ success, data, error }` pattern ทุก action
+- `npm run build` ผ่านไม่มี errors
 
 ## Notes
 
-<!-- Add notes here -->
+- Depends on Phase 1-1 (ต้องมี `User` record ใน DB แล้ว)
+- ใช้ `getDbUser()` helper lookup user จาก Clerk `userId` → DB `User`
+- ใช้ `assertOwnsQuizSet()` ตรวจ ownership ก่อนทุก mutation
+- `as const` บน `success` ให้ TypeScript discriminate union ได้ถูกต้อง
+- cascade delete ของ questions ทำโดย Prisma schema (`onDelete: Cascade`) ไม่ต้องลบเองใน action
 
 ## History
 
